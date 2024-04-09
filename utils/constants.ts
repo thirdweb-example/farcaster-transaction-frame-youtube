@@ -1,9 +1,10 @@
 import { createThirdwebClient, defineChain } from "thirdweb";
+import { optimism } from "thirdweb/chains";
 
-const clientID = process.env.NEXT_PUBLIC_CLIENT_ID;
+const secretKey = process.env.TW_SECRET_KEY;
 export const CLIENT = createThirdwebClient({
-    clientId: clientID as string,
+    secretKey: secretKey as string,
 });
-export const CHAIN = defineChain(10);
+export const CHAIN = defineChain( optimism );
 
 export const erc721ContractAddress = process.env.CONTRACT_ADDRESS as string;

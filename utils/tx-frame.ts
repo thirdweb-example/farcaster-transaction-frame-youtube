@@ -1,30 +1,25 @@
-import { getContract } from 'thirdweb';
+import { encode, getContract } from 'thirdweb';
 import { CHAIN, CLIENT, erc721ContractAddress } from './constants';
-import { claimTo } from 'thirdweb/extensions/erc721'
-import { erc721ContractABI } from './erc721ContractABI';
+import { claimTo } from 'thirdweb/extensions/erc721';
 import { FrameValidationData } from '@coinbase/onchainkit';
 
 export const getERC721PreparedEncodedData = async (
     walletAddress: string,
 ) => {
     // Get the contract
-    const contract = await getContract({
+    const contract = getContract({
         client: CLIENT,
         chain: CHAIN,
         address: erc721ContractAddress,
-        abi: erc721ContractABI
     });
 
-    // const tx = await prepareContractCall();
-    const tx = await claimTo({
+    const tx = claimTo({
         contract: contract,
         to: walletAddress,
         quantity: BigInt(1),
     });
     
-    const data = await tx.data;
-    // @ts-ignore
-    const encodedData = await data();
+    const encodedData = encode(tx);
 
     // Return the encoded transaction data
     return encodedData;

@@ -1,4 +1,3 @@
-// Get contract ABI for claim function
 export const erc721ContractABI = [
   {
     "type": "function",
